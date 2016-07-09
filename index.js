@@ -2,13 +2,21 @@
 
 module.exports = {
   fromMs,
-  toMs
+  toMs,
+  HOUR,
+  MINUTE,
+  SECOND
 }
 
 const zeroFill = require('zero-fill')
 
+// Time units with their corresponding values in miliseconds
+const HOUR = 3600000
+const MINUTE = 60000
+const SECOND = 1000
+
 // =============================================================================
-// Module exports
+// Export functions
 // =============================================================================
 
 function fromMs (ms, format = 'mm:ss') {
@@ -19,10 +27,10 @@ function fromMs (ms, format = 'mm:ss') {
   let absMs = Math.abs(ms)
 
   let negative = (ms < 0)
-  let hours = Math.floor(absMs / 3600000)
-  let minutes = Math.floor(absMs % 3600000 / 60000)
-  let seconds = Math.floor(absMs % 60000 / 1000)
-  let miliseconds = Math.floor(absMs % 1000)
+  let hours = Math.floor(absMs / HOUR)
+  let minutes = Math.floor(absMs % HOUR / MINUTE)
+  let seconds = Math.floor(absMs % MINUTE / SECOND)
+  let miliseconds = Math.floor(absMs % SECOND)
 
   return formatTime({
     negative, hours, minutes, seconds, miliseconds
