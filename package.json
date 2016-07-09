@@ -1,6 +1,6 @@
 {
   "name": "hh-mm-ss",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "description": "Simple hh:mm:ss time formatting utility",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Goldob/hh-mm-ss.git"
   },
   "keywords": [
-    "time formatting",
+    "time format",
     "hours",
     "minutes",
     "seconds",
