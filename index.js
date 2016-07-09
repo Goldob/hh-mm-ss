@@ -16,12 +16,17 @@ function fromMs (ms, format = 'hh:mm:ss') {
     throw new Error('NaN error')
   }
 
-  let hours = Math.floor(ms / 3600000)
-  let minutes = Math.floor(ms % 3600000 / 60000)
-  let seconds = Math.floor(ms % 60000 / 1000)
-  let miliseconds = Math.floor(ms % 1000)
+  let absMs = Math.abs(ms)
 
-  return formatTime({hours, minutes, seconds, miliseconds}, format)
+  let negative = (ms < 0)
+  let hours = Math.floor(absMs / 3600000)
+  let minutes = Math.floor(absMs % 3600000 / 60000)
+  let seconds = Math.floor(absMs % 60000 / 1000)
+  let miliseconds = Math.floor(absMs % 1000)
+
+  return formatTime({
+    negative, hours, minutes, seconds, miliseconds
+  }, format)
 }
 
 function toMs (time) {
@@ -63,9 +68,9 @@ function formatTime (time, format) {
   let ss = zeroFill(2, time.seconds)
   let sss = zeroFill(3, time.miliseconds)
 
-  return showHr ? (
+  return (time.negative ? '-' : '') + (showHr ? (
     showMs ? `${hh}:${mm}:${ss}.${sss}` : `${hh}:${mm}:${ss}`
   ) : (
     showMs ? `${mm}:${ss}.${sss}` : `${mm}:${ss}`
-  )
+  ))
 }
