@@ -11,7 +11,7 @@ const zeroFill = require('zero-fill')
 // Module exports
 // =============================================================================
 
-function fromMs (ms, format = 'hh:mm:ss') {
+function fromMs (ms, format = 'mm:ss') {
   if (typeof ms !== 'number' || Number.isNaN(ms)) {
     throw new Error('NaN error')
   }
