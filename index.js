@@ -1,9 +1,9 @@
 'use strict'
 
-module.exports = [
+module.exports = {
   fromMs,
   toMs
-]
+}
 
 const zeroFill = require('zero-fill')
 
@@ -17,7 +17,7 @@ function fromMs (ms, format = 'hh:mm:ss') {
   }
 
   let hours = Math.floor(ms / 3600000)
-  let minutes = Math.floor(ms % 3600000 / 60)
+  let minutes = Math.floor(ms % 3600000 / 60000)
   let seconds = Math.floor(ms % 60000 / 1000)
   let miliseconds = Math.floor(ms % 1000)
 
