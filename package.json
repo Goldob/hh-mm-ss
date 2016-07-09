@@ -4,7 +4,7 @@
   "description": "Simple hh:mm:ss time formatting utility",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard & node test.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/Goldob/hh-mm-ss#readme",
   "devDependencies": {
-    "standard": "^7.1.2"
+    "standard": "^7.1.2",
+    "tape": "^4.6.0"
   },
   "dependencies": {
     "zero-fill": "^2.2.3"
