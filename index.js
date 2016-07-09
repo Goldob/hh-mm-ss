@@ -2,10 +2,7 @@
 
 module.exports = {
   fromMs,
-  toMs,
-  HOUR,
-  MINUTE,
-  SECOND
+  toMs
 }
 
 const zeroFill = require('zero-fill')
@@ -38,8 +35,24 @@ function fromMs (ms, format = 'mm:ss') {
 }
 
 function toMs (time) {
-  // TODO Convert time string to miliseconds
-  return 0
+  const re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
+
+  let result = re.exec(time)
+  if (!result) throw new Error()
+
+  let negative = result[1] === '-'
+  let hours = result[2] | 0
+  let minutes = result[3] | 0
+  let seconds = result[4] | 0
+  let miliseconds = Math.floor(1000 * result[5] | 0)
+
+  if (minutes > 60 || seconds > 60) {
+    throw new Error()
+  }
+
+  return (negative ? -1 : 1) * (
+    hours * HOUR + minutes * MINUTE + seconds * SECOND + miliseconds
+  )
 }
 
 // =============================================================================
