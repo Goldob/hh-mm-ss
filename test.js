@@ -1,7 +1,7 @@
 'use-strict'
 
 const test = require('tape')
-const {fromMs, toMs} = require('./')
+const {fromMs, fromS, toMs} = require('./')
 
 // =============================================================================
 //  Test cases
@@ -23,6 +23,25 @@ test('fromMs() test', (t) => {
   t.throws(() => fromMs(null))
   t.throws(() => fromMs('text'))
   t.throws(() => fromMs(0, 'mm:hh:ss'))
+
+  t.end()
+})
+
+test('fromS() test', (t) => {
+  // Basic functionality
+  t.equal(fromS(75), '01:15')
+  t.equal(fromS(442800), '123:00:00')
+  t.equal(fromS(-442800), '-123:00:00')
+
+  // Output formatting
+  t.equal(fromS(38, 'mm:ss.sss'), '00:38.000')
+  t.equal(fromS(0, 'hh:mm:ss'), '00:00:00')
+  t.equal(fromS(3600, 'mm:ss'), '01:00:00')
+
+  // Input validation
+  t.throws(() => fromS(null))
+  t.throws(() => fromS('text'))
+  t.throws(() => fromS(0, 'mm:hh:ss'))
 
   t.end()
 })

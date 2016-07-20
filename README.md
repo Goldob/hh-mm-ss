@@ -13,6 +13,9 @@ TimeFormat.toMs('137:00:00')           // 493200000
 TimeFormat.fromMs(194000)              // '03:14'
 TimeFormat.fromMs(420)                 // '00:00.420'
 TimeFormat.fromMs(150000, 'hh:mm:ss')  // '00:02:30'
+
+TimeFormat.fromS(194)			// '03:14'
+TimeFormat.fromS(150, 'hh:mm:ss')	// '00:02:30'
 ```
 
 ## Usage
@@ -27,6 +30,10 @@ Convert given `hh:mm:ss` formatted string to miliseconds
 ### `fromMs(ms, format)`
 
 Generate formatted string from time in miliseconds
+
+### `fromS(s, format)`
+
+Generate formatted string from time in seconds
 
 #### Parameters
 - `ms` Time in miliseconds

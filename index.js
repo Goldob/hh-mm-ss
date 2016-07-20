@@ -2,6 +2,7 @@
 
 module.exports = {
   fromMs,
+  fromS,
   toMs
 }
 
@@ -32,6 +33,16 @@ function fromMs (ms, format = 'mm:ss') {
   return formatTime({
     negative, hours, minutes, seconds, miliseconds
   }, format)
+}
+
+function fromS (s, format = 'mm:ss') {
+  if (typeof s !== 'number' || Number.isNaN(s)) {
+    throw new Error('NaN error')
+  }
+
+  let ms = s * SECOND
+
+  return fromMs(ms, format)
 }
 
 function toMs (time) {
