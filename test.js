@@ -1,7 +1,7 @@
 'use-strict'
 
 const test = require('tape')
-const {fromMs, fromS, toMs} = require('./')
+const {fromMs, fromS, toMs, toS} = require('./')
 
 // =============================================================================
 //  Test cases
@@ -59,6 +59,23 @@ test('toMs() test', (t) => {
   t.throws(() => toMs('153'))
   t.throws(() => toMs(null))
   t.throws(() => toMs('00:62'))
+
+  t.end()
+})
+
+test('toS() test', (t) => {
+  // Basic functionality
+  t.equal(toS('01:05:17'), 3917)
+  t.equal(toS('137:00:00.0'), 493200)
+  t.equal(toS('00:10.230'), 10)
+  t.equal(toS('00:00:07.10845'), 7)
+  t.equal(toS('-02:07:12'), -7632)
+
+  // Input validation
+  t.throws(() => toS('13:05:02:11'))
+  t.throws(() => toS('153'))
+  t.throws(() => toS(null))
+  t.throws(() => toS('00:62'))
 
   t.end()
 })

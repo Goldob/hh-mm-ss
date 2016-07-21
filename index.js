@@ -3,7 +3,8 @@
 module.exports = {
   fromMs,
   fromS,
-  toMs
+  toMs,
+  toS
 }
 
 const zeroFill = require('zero-fill')
@@ -64,6 +65,11 @@ function toMs (time) {
   return (negative ? -1 : 1) * (
     hours * HOUR + minutes * MINUTE + seconds * SECOND + miliseconds
   )
+}
+
+function toS (time) {
+  let ms = toMs(time)
+  return Math.floor(ms / SECOND)
 }
 
 // =============================================================================
