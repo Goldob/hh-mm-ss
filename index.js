@@ -2,7 +2,9 @@
 
 module.exports = {
   fromMs,
-  toMs
+  fromS,
+  toMs,
+  toS
 }
 
 const zeroFill = require('zero-fill')
@@ -34,6 +36,16 @@ function fromMs (ms, format = 'mm:ss') {
   }, format)
 }
 
+function fromS (s, format = 'mm:ss') {
+  if (typeof s !== 'number' || Number.isNaN(s)) {
+    throw new Error('NaN error')
+  }
+
+  let ms = s * SECOND
+
+  return fromMs(ms, format)
+}
+
 function toMs (time) {
   const re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
 
@@ -53,6 +65,11 @@ function toMs (time) {
   return (negative ? -1 : 1) * (
     hours * HOUR + minutes * MINUTE + seconds * SECOND + miliseconds
   )
+}
+
+function toS (time) {
+  let ms = toMs(time)
+  return Math.floor(ms / SECOND)
 }
 
 // =============================================================================
