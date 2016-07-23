@@ -3,21 +3,17 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 
-:watch: Convert miliseconds to `hh:mm:ss` format and vice versa.
+:watch: Convert seconds or miliseconds to `hh:mm:ss` format and vice versa.
 
 ```js
 var TimeFormat = require('hh-mm-ss')
 
-TimeFormat.toMs('137:00:00')           // 493200000
-
 TimeFormat.toS('137:00:00')            // 493200
 
-TimeFormat.fromMs(194000)              // '03:14'
-TimeFormat.fromMs(420)                 // '00:00.420'
-TimeFormat.fromMs(150000, 'hh:mm:ss')  // '00:02:30'
+TimeFormat.fromS(194)                  // '03:14'
+TimeFormat.fromS(150, 'hh:mm:ss')      // '00:02:30'
 
-TimeFormat.fromS(194)			// '03:14'
-TimeFormat.fromS(150, 'hh:mm:ss')	// '00:02:30'
+TimeFormat.fromMs(12345)               // '00:12.345'
 ```
 
 ## Usage
