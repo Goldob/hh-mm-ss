@@ -1,7 +1,7 @@
 'use-strict'
 
 const test = require('tape')
-const {fromMs, fromS, toMs, toS} = require('./')
+const {fromMs, fromS, toMs, toS} = require('../')
 
 // =============================================================================
 //  Test cases
