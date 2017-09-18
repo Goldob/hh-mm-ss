@@ -10,14 +10,16 @@ const {fromMs, fromS, toMs, toS} = require('../')
 test('fromMs() test', (t) => {
   // Basic functionality
   t.equal(fromMs(75000), '01:15')
-  t.equal(fromMs(442800000, 'hh:mm:ss'), '123:00:00')
+  t.equal(fromMs(442800000), '123:00:00')
   t.equal(fromMs(90576), '01:30.576')
   t.equal(fromMs(-157250), '-02:37.250')
 
   // Output formatting
   t.equal(fromMs(38000, 'mm:ss.sss'), '00:38.000')
   t.equal(fromMs(0, 'hh:mm:ss'), '00:00:00')
-  t.equal(fromMs(3600000, 'hh:mm:ss'), '01:00:00')
+  t.equal(fromMs(3600000, 'mm:ss'), '01:00:00')
+  t.equal(fromMs(4500000, 'hh:mm'), '01:15')
+  t.equal(fromMs(-9900000, 'hh:mm'), '-02:45')
 
   // Input validation
   t.throws(() => fromMs(null))
@@ -30,16 +32,15 @@ test('fromMs() test', (t) => {
 test('fromS() test', (t) => {
   // Basic functionality
   t.equal(fromS(75), '01:15')
-  t.equal(fromS(442800,'hh:mm:ss'), '123:00:00')
-  // added these two tests to chekc if the new format 'hh:mm' works
-  t.equal(fromS(8100,'hh:mm'), '02:15')
-  t.equal(fromS(-8100,'hh:mm'), '-02:15')
-  t.equal(fromS(-442800, 'hh:mm:ss'), '-123:00:00')
+  t.equal(fromS(442800), '123:00:00')
+  t.equal(fromS(-442800), '-123:00:00')
 
   // Output formatting
   t.equal(fromS(38, 'mm:ss.sss'), '00:38.000')
   t.equal(fromS(0, 'hh:mm:ss'), '00:00:00')
-  t.equal(fromS(3600, 'hh:mm:ss'), '01:00:00')
+  t.equal(fromS(3600, 'mm:ss'), '01:00:00')
+  t.equal(fromS(4500, 'hh:mm'), '01:15')
+  t.equal(fromS(-9900, 'hh:mm'), '-02:45')
 
   // Input validation
   t.throws(() => fromS(null))
@@ -56,6 +57,11 @@ test('toMs() test', (t) => {
   t.equal(toMs('00:10.230'), 10230)
   t.equal(toMs('00:00:07.10845'), 7108)
   t.equal(toMs('-02:07:12'), -7632000)
+  t.equal(toMs('02:00'), 120000)
+  t.equal(toMs('02:00', 'hour'), 7200000)
+  t.equal(toMs('-04:35', 'hour'), -16500000)
+
+
 
   // Input validation
   t.throws(() => toMs('13:05:02:11'))
@@ -73,6 +79,9 @@ test('toS() test', (t) => {
   t.equal(toS('00:10.230'), 10)
   t.equal(toS('00:00:07.10845'), 7)
   t.equal(toS('-02:07:12'), -7632)
+  t.equal(toS('02:00',), 120)
+  t.equal(toS('02:00', 'hour'), 7200)
+  t.equal(toS('-04:35', 'hour'), -16500)
 
   // Input validation
   t.throws(() => toS('13:05:02:11'))

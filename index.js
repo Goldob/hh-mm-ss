@@ -46,8 +46,15 @@ function fromS (s, format = 'mm:ss') {
   return fromMs(ms, format)
 }
 
-function toMs (time) {
-  const re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
+function toMs (time, string) {
+  let re
+  if (!string || string === 'second') {
+    re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
+  }
+  else if (string === 'hour') {
+    re = /^(-)?(\d\d):(\d\d)?$/
+  }
+
 
   let result = re.exec(time)
   if (!result) throw new Error()
@@ -67,8 +74,8 @@ function toMs (time) {
   )
 }
 
-function toS (time) {
-  let ms = toMs(time)
+function toS (time,string) {
+  let ms = toMs(time,string)
   return Math.floor(ms / SECOND)
 }
 
@@ -79,7 +86,7 @@ function toS (time) {
 function formatTime (time, format) {
   let showHr
   let showMs
-  let showSc // added a new variable to check if the user require seconds or not
+  let showSc
 
   switch (format.toLowerCase()) {
     case 'hh:mm:ss.sss':
@@ -99,6 +106,7 @@ function formatTime (time, format) {
     case 'mm:ss':
       showHr = !(!time.hours)
       showMs = !(!time.miliseconds)
+      showSc = true
       break
     case 'mm:ss.sss':
       showHr = !(!time.hours)
@@ -114,7 +122,6 @@ function formatTime (time, format) {
   let sss = zeroFill(3, time.miliseconds)
 
   return (time.negative ? '-' : '') + (showHr ? (
-    // added a new ternary oprator to check if the second is required
     showMs ? `${hh}:${mm}:${ss}.${sss}` : showSc ? `${hh}:${mm}:${ss}` : `${hh}:${mm}`
   ) : (
     showMs ? `${mm}:${ss}.${sss}` : `${mm}:${ss}`
