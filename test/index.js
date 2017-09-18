@@ -10,14 +10,14 @@ const {fromMs, fromS, toMs, toS} = require('../')
 test('fromMs() test', (t) => {
   // Basic functionality
   t.equal(fromMs(75000), '01:15')
-  t.equal(fromMs(442800000), '123:00:00')
+  t.equal(fromMs(442800000, 'hh:mm:ss'), '123:00:00')
   t.equal(fromMs(90576), '01:30.576')
   t.equal(fromMs(-157250), '-02:37.250')
 
   // Output formatting
   t.equal(fromMs(38000, 'mm:ss.sss'), '00:38.000')
   t.equal(fromMs(0, 'hh:mm:ss'), '00:00:00')
-  t.equal(fromMs(3600000, 'mm:ss'), '01:00:00')
+  t.equal(fromMs(3600000, 'hh:mm:ss'), '01:00:00')
 
   // Input validation
   t.throws(() => fromMs(null))
@@ -30,13 +30,16 @@ test('fromMs() test', (t) => {
 test('fromS() test', (t) => {
   // Basic functionality
   t.equal(fromS(75), '01:15')
-  t.equal(fromS(442800), '123:00:00')
-  t.equal(fromS(-442800), '-123:00:00')
+  t.equal(fromS(442800,'hh:mm:ss'), '123:00:00')
+  // added these two tests to chekc if the new format 'hh:mm' works
+  t.equal(fromS(8100,'hh:mm'), '02:15')
+  t.equal(fromS(-8100,'hh:mm'), '-02:15')
+  t.equal(fromS(-442800, 'hh:mm:ss'), '-123:00:00')
 
   // Output formatting
   t.equal(fromS(38, 'mm:ss.sss'), '00:38.000')
   t.equal(fromS(0, 'hh:mm:ss'), '00:00:00')
-  t.equal(fromS(3600, 'mm:ss'), '01:00:00')
+  t.equal(fromS(3600, 'hh:mm:ss'), '01:00:00')
 
   // Input validation
   t.throws(() => fromS(null))

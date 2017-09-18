@@ -79,6 +79,7 @@ function toS (time) {
 function formatTime (time, format) {
   let showHr
   let showMs
+  let showSc // added a new variable to check if the user require seconds or not
 
   switch (format.toLowerCase()) {
     case 'hh:mm:ss.sss':
@@ -88,6 +89,12 @@ function formatTime (time, format) {
     case 'hh:mm:ss':
       showHr = true
       showMs = !(!time.miliseconds)
+      showSc= true
+      break
+    case 'hh:mm':
+      showHr = true
+      showSc = !(!time.seconds)
+      showMs = !(!time.miliseconds);
       break
     case 'mm:ss':
       showHr = !(!time.hours)
@@ -107,7 +114,8 @@ function formatTime (time, format) {
   let sss = zeroFill(3, time.miliseconds)
 
   return (time.negative ? '-' : '') + (showHr ? (
-    showMs ? `${hh}:${mm}:${ss}.${sss}` : `${hh}:${mm}:${ss}`
+    // added a new ternary oprator to check if the second is required
+    showMs ? `${hh}:${mm}:${ss}.${sss}` : showSc ? `${hh}:${mm}:${ss}` : `${hh}:${mm}`
   ) : (
     showMs ? `${mm}:${ss}.${sss}` : `${mm}:${ss}`
   ))
