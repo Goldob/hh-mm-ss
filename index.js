@@ -46,15 +46,16 @@ function fromS (s, format = 'mm:ss') {
   return fromMs(ms, format)
 }
 
-function toMs (time, string) {
+function toMs (time, format = 'mm:ss') {
   let re
-  if (!string || string === 'second') {
+  if (format === 'mm:ss' || format === 'mm:ss.sss' || format === 'hh:mm:ss' || format === 'hh:mm:ss.sss' ) {
+
     re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
   }
-  else if (string === 'hour') {
+
+  else if (format === 'hh:mm') {
     re = /^(-)?(\d\d):(\d\d)?$/
   }
-
 
   let result = re.exec(time)
   if (!result) throw new Error()
@@ -74,8 +75,8 @@ function toMs (time, string) {
   )
 }
 
-function toS (time,string) {
-  let ms = toMs(time,string)
+function toS (time,format = 'mm:ss') {
+  let ms = toMs(time,format)
   return Math.floor(ms / SECOND)
 }
 
