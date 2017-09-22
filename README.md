@@ -61,6 +61,8 @@ The following formats are supported: `mm:ss`, `hh:mm`, `hh:mm:ss`, `mm:ss.sss`, 
 - `ss` - second
 - `sss` - miliseconds
 
+Specified format constitutes a baseline for corresponding functions, but will be appropriately extended as needed. For example, `fromMs(9000, 'mm:ss')` will return `01:30`, yet `fromMs(9500, 'mm:ss')` will return `01:30.500` to account for the miliseconds part.
+
 ## Install
 
 `npm install hh-mm-ss --save`
