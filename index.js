@@ -14,6 +14,8 @@ const HOUR = 3600000
 const MINUTE = 60000
 const SECOND = 1000
 
+const TIME_FORMAT_ERRMSG = 'Time format error'
+
 // =============================================================================
 // Export functions
 // =============================================================================
@@ -52,7 +54,9 @@ function toMs (time, format = 'mm:ss') {
   if (['mm:ss', 'mm:ss.sss', 'hh:mm:ss', 'hh:mm:ss.sss'].includes(format)) {
     re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
   } else if (format === 'hh:mm') {
-    re = /^(-)?(\d\d):(\d\d)?$/
+    re = /^(-)?(\d\d):(\d\d)(?::(\d\d)(?:(\.\d+))?)?$/
+  } else {
+    throw new Error(TIME_FORMAT_ERRMSG)
   }
 
   let result = re.exec(time)
@@ -114,7 +118,7 @@ function formatTime (time, format) {
       showHr = !(!time.hours)
       break
     default:
-      throw new Error('Invalid time format')
+      throw new Error(TIME_FORMAT_ERRMSG)
   }
 
   let hh = zeroFill(2, time.hours)
