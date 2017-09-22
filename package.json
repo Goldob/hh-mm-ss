@@ -1,6 +1,6 @@
 {
   "name": "hh-mm-ss",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Simple hh:mm:ss time formatting utility",
   "main": "index.js",
   "scripts": {
