@@ -48,12 +48,10 @@ function fromS (s, format = 'mm:ss') {
 
 function toMs (time, format = 'mm:ss') {
   let re
-  if (format === 'mm:ss' || format === 'mm:ss.sss' || format === 'hh:mm:ss' || format === 'hh:mm:ss.sss' ) {
 
+  if (['mm:ss', 'mm:ss.sss', 'hh:mm:ss', 'hh:mm:ss.sss'].includes(format)) {
     re = /^(-)?(?:(\d\d+):)?(\d\d):(\d\d)(\.\d+)?$/
-  }
-
-  else if (format === 'hh:mm') {
+  } else if (format === 'hh:mm') {
     re = /^(-)?(\d\d):(\d\d)?$/
   }
 
@@ -75,8 +73,8 @@ function toMs (time, format = 'mm:ss') {
   )
 }
 
-function toS (time,format = 'mm:ss') {
-  let ms = toMs(time,format)
+function toS (time, format = 'mm:ss') {
+  let ms = toMs(time, format)
   return Math.floor(ms / SECOND)
 }
 
@@ -85,33 +83,35 @@ function toS (time,format = 'mm:ss') {
 // =============================================================================
 
 function formatTime (time, format) {
-  let showHr
   let showMs
   let showSc
+  let showHr
 
   switch (format.toLowerCase()) {
     case 'hh:mm:ss.sss':
-      showHr = true
       showMs = true
+      showSc = true
+      showHr = true
       break
     case 'hh:mm:ss':
-      showHr = true
-      showMs = !(!time.miliseconds)
-      showSc= true
-      break
-    case 'hh:mm':
-      showHr = true
-      showSc = !(!time.seconds)
-      showMs = !(!time.miliseconds);
-      break
-    case 'mm:ss':
-      showHr = !(!time.hours)
       showMs = !(!time.miliseconds)
       showSc = true
+      showHr = true
+      break
+    case 'hh:mm':
+      showMs = !(!time.miliseconds)
+      showSc = showMs || !(!time.seconds)
+      showHr = true
+      break
+    case 'mm:ss':
+      showMs = !(!time.miliseconds)
+      showSc = true
+      showHr = !(!time.hours)
       break
     case 'mm:ss.sss':
-      showHr = !(!time.hours)
       showMs = true
+      showSc = true
+      showHr = !(!time.hours)
       break
     default:
       throw new Error('Invalid time format')

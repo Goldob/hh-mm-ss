@@ -77,7 +77,7 @@ test('toS() test', (t) => {
   t.equal(toS('00:10.230'), 10)
   t.equal(toS('00:00:07.10845'), 7)
   t.equal(toS('-02:07:12'), -7632)
-  t.equal(toS('02:00',), 120)
+  t.equal(toS('02:00'), 120)
   t.equal(toS('02:00', 'hh:mm'), 7200)
   t.equal(toS('-04:35', 'hh:mm'), -16500)
 
@@ -91,14 +91,14 @@ test('toS() test', (t) => {
 })
 
 test('symmetrical conversion test', (t) => {
-  // ToMs() and fromMs for all formats
+  // fromMs() and toMs() for all formats
   t.equal(toMs(fromMs(900000, 'mm:ss'), 'mm:ss'), 900000)
   t.equal(toMs(fromMs(915040, 'mm:ss.sss'), 'mm:ss.sss'), 915040)
   t.equal(toMs(fromMs(4500000, 'hh:mm'), 'hh:mm'), 4500000)
   t.equal(toMs(fromMs(4515000, 'hh:mm:ss'), 'hh:mm:ss'), 4515000)
   t.equal(toMs(fromMs(4515690, 'hh:mm:ss.sss'), 'hh:mm:ss.sss'), 4515690)
 
-  // ToS() and fromS for all formats
+  // fromS() and toMs() for all formats
   t.equal(toS(fromS(900, 'mm:ss'), 'mm:ss'), 900)
   t.equal(toS(fromS(921, 'mm:ss.sss'), 'mm:ss.sss'), 921)
   t.equal(toS(fromS(4500, 'hh:mm'), 'hh:mm'), 4500)
@@ -107,4 +107,3 @@ test('symmetrical conversion test', (t) => {
 
   t.end()
 })
-

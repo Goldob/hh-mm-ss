@@ -10,7 +10,7 @@ var TimeFormat = require('hh-mm-ss')
 
 TimeFormat.toS('137:00:00')            // 493200
 TimeFormat.toS('02:00')                // 120
-TimeFormat.toS('02:00', 'hh:mm')        // 7200
+TimeFormat.toS('02:00', 'hh:mm')       // 7200
 
 TimeFormat.fromS(194)                  // '03:14'
 TimeFormat.fromS(150, 'hh:mm:ss')      // '00:02:30'
@@ -27,8 +27,7 @@ Convert given `hh:mm:ss` formatted string to miliseconds
 
 #### Parameters
 - `time` String representation
-- `fromat` _(optional)_ Default input format. If not specified, `mm:ss` is implied. if the `format`
-is set to`'hh:mm'`, it will interpret your input as `hh:mm`. See section below for supported format list
+- `format` _(optional)_ Default input format. If present, it will be used to resolve amiguities during interpretation. If not specified, `mm:ss` is implied. See section below for supported format list
 
 ### `toS(time, format)`
 
@@ -36,8 +35,7 @@ Convert given `hh:mm:ss` formatted string to seconds
 
 #### Parameters
 - `time` String representation
-- `fromat` _(optional)_ Default input format. If not specified, `mm:ss` is implied. if the `format`
-is set to`'hh:mm'`, it will interpret your input as `hh:mm`. See section below for supported format list.
+- `format` _(optional)_ Default input format. If present, it will be used to resolve amiguities during interpretation. If not specified, `mm:ss` is implied. See section below for supported format list
 
 ### `fromMs(ms, format)`
 
